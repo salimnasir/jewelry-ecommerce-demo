@@ -1,12 +1,19 @@
-# Jewelry E-commerce Website
+import requests
+from bs4 import BeautifulSoup
 
-Modern jewelry homepage UI inspired by luxury brands.
+url = "https://example.com"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "html.parser")
 
-## Features
-- Responsive design
-- Product categories (Rings, Necklaces, Bracelets, Earrings)
-- Clean modern layout
+products = []
 
-## Tech
-- HTML
-- CSS
+for item in soup.select(".product"):
+    name = item.select_one(".product-name").text
+    price = item.select_one(".price").text
+    
+    products.append({
+        "name": name,
+        "price": price
+    })
+
+print(products)
